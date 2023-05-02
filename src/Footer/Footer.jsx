@@ -13,11 +13,11 @@ const Footer = () => {
                       >
                 
                         <div className="mt-8 space-y-4 lg:mt-0">
-                          <span className="hidden h-1 w-10 rounded bg-teal-500 lg:block"></span>
+                          <span className="hidden h-1 w-10 rounded bg-orange-500 lg:block"></span>
                 
                           <div>
                 <h2 className="text-2xl font-medium text-gray-900">You can email Us</h2>
-                <p className="my-4 max-w-lg text-gray-500">
+                <p className="my-4 max-w-lg text-gray-700">
                   You can email us. We can prepare for you the best food you ever tried!
                   Best food with best Chef! 💗
                 </p>
@@ -26,7 +26,7 @@ const Footer = () => {
                           <form className="mt-6 w-full">
                 <label htmlFor="UserEmail" className="sr-only"> Email </label>
                 <div
-                  className="rounded-md border border-gray-100 p-2 focus-within:ring sm:flex sm:items-center sm:gap-4"
+                  className="rounded-md border border-gray-100 py-2 focus-within:ring sm:flex sm:items-center sm:gap-4"
                 >
                   <input
                     type="email"
@@ -53,17 +53,17 @@ const Footer = () => {
                 <nav aria-label="Footer Navigation - Services" className="mt-6">
                   <ul className="space-y-4 text-sm">
                     <li>
-                      <p className="text-gray-700 transition hover:opacity-75">
+                      <p className="my-4 max-w-lg text-gray-700">
                         Monday - Friday <br /> 8 AM - 10 PM
                       </p>
                     </li>
                     <li>
-                    <p className="text-gray-700 transition hover:opacity-75">
+                    <p className="my-4 max-w-lg text-gray-700">
                         Saturday - Friday <br /> 8 AM - 10 PM
                       </p>
                     </li>
                     <li>
-                    <p className="text-gray-700 transition hover:opacity-75">
+                    <p className="my-4 max-w-lg text-gray-700">
                         Sunday - Friday <br /> 8 AM - 10 PM
                       </p>
                     </li>
@@ -76,17 +76,17 @@ const Footer = () => {
                 <nav aria-label="Footer Navigation - Company" className="mt-6">
                   <ul className="space-y-4 text-sm">
                   <li>
-                    <p className="text-gray-700 transition hover:opacity-75">
+                    <p className="my-4 max-w-lg text-gray-700">
                      Street: Piazza Cardinale Riario Sforza 72
                       </p>
                     </li>
                     <li>
-                    <p className="text-gray-700 transition hover:opacity-75">
+                    <p className="my-4 max-w-lg text-gray-700">
                      City: Castel Vittorio, Italy
                       </p>
                     </li>
                     <li>
-                    <p className="text-gray-700 transition hover:opacity-75">
+                    <p className="my-4 max-w-lg text-gray-700">
                       Contact number: <br /> 0345 0605957
                       </p>
                     </li>
