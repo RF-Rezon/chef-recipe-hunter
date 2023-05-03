@@ -4,7 +4,9 @@ import Blogs from '../Blogs/Blogs';
 import Header from '../Header/Header';
 import ErrorPage from '../Layouts/404Page';
 import Home from '../Layouts/Home';
-import ViewDetailsCard from '../ViewDetailsCard/ViewDetailsCard';
+import RegisterPage from '../Pages/Register Page/RegisterPage';
+import ViewDetailsCard from './../ViewDetailsCard/ViewDetailsCard';
+import LogInPage from '../Pages/Sign In Page/LogInPage';
 
 
 const router = createBrowserRouter([
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
         {
             path:"blogs",
             element: <Blogs/>
+        },
+        {
+            path:"login",
+            element: <LogInPage/>
+        },
+        {
+            path:"register",
+            element: <RegisterPage/>
         },
       ]
     },
