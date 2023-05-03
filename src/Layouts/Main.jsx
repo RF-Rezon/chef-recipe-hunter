@@ -1,9 +1,10 @@
 import React from 'react';
 import { Outlet, useNavigation } from 'react-router-dom';
-import Footer from '../Footer/Footer';
-import Navbar from '../NavBar/Navbar';
+import Footer from '../Utils/Footer/Footer';
+import Navbar from '../Utils/NavBar/Navbar';
 
-const Home = () => {
+
+const Main = () => {
     const navigation =  useNavigation();
     return (
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
@@ -15,4 +16,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Main;

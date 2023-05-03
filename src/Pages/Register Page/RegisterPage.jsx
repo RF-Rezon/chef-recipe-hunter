@@ -1,12 +1,38 @@
 // Initialization for ES Users
+import { useContext } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 initTE({ Input, Ripple });
 
 const RegisterPage = () => {
+   const {createUser} = useContext(AuthContext);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const photo_url = form.photo_url.value;
+
+    // console.log(name, email, password, photo_url);
+
+    createUser(email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+  };
   return (
-    <div>
+    <div className="m-5 mb-40 md:mb-10">
       <section className="h-screen">
         <div className="h-full">
           <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
@@ -19,86 +45,130 @@ const RegisterPage = () => {
             </div>
 
             <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="flex flex-row items-center justify-center lg:justify-start">
                   <p className="mb-0 mr-4 text-lg">Sign up with</p>
 
                   <button
-                      type="button"
-                      data-te-ripple-init
-                      data-te-ripple-color="light"
-                      className="mx-1 h-9 w-9 rounded-full bg-black uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
-                    >
-                      <div className="flex items-center justify-center"><FaGoogle/></div>
-                    </button>
+                    type="button"
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                    className="mx-1 h-9 w-9 rounded-full bg-black uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
+                  >
+                    <div className="flex items-center justify-center">
+                      <FaGoogle />
+                    </div>
+                  </button>
 
-                    <button
-                      type="button"
-                      data-te-ripple-init
-                      data-te-ripple-color="light"
-                      className="mx-1 h-9 w-9 rounded-full bg-orange-500 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
-                    >
-                      <div className="flex items-center justify-center"><FaGithub/></div>
-                    </button>
-
-                 
+                  <button
+                    type="button"
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                    className="mx-1 h-9 w-9 rounded-full bg-orange-500 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
+                  >
+                    <div className="flex items-center justify-center">
+                      <FaGithub />
+                    </div>
+                  </button>
                 </div>
 
                 <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                   <p className="mx-4 mb-0 text-center font-semibold dark:text-white">Or</p>
                 </div>
-
-                <div className="relative mb-6" data-te-input-wrapper-init>
-                  <input
-                    type="text"
-                    className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                    id="exampleFormControlInput2"
-                    placeholder="Email address"
-                  />
+           <div className="mb-10">
+                <div className="relative mb-6">
                   <label
-                    for="exampleFormControlInput2"
-                    className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                    htmlFor="UserName"
+                    className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                   >
-                    Email address
+                    <span className="text-sm font-medium text-gray-800"> Name </span>
+
+                    <input
+                      
+                      type="text"
+                      name="name"
+                      id="UserName"
+                      placeholder="Your name"
+                      className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" 
+                      required
+                    />
                   </label>
                 </div>
 
-                <div className="relative mb-6" data-te-input-wrapper-init>
-                  <input
-                    type="password"
-                    className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                    id="exampleFormControlInput22"
-                    placeholder="Password"
-                  />
+                <div className="relative mb-6">
                   <label
-                    for="exampleFormControlInput22"
-                    className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                    htmlFor="UserEmail"
+                    className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
                   >
-                    Password
+                    <span className="text-sm font-medium text-gray-800"> Email </span>
+
+                    <input
+                      type="email"
+                      id="UserEmail"
+                      name="email"
+                      placeholder="Your email"
+                      className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                      required
+                    />
                   </label>
                 </div>
 
-            
+                <div className="relative mb-6">
+                  <label
+                    htmlFor="UserPassword"
+                    className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  >
+                    <span className="text-sm font-medium text-gray-800"> Password </span>
+
+                    <input
+                      type="password"
+                      id="UserPassword"
+                      name="password"
+                      placeholder="Password"
+                      className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                      required
+                    />
+                  </label>
+                </div>
+
+                <div className="relative mb-8">
+                  <label
+                    htmlFor="UserPhoto"
+                    className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  >
+                    <span className="text-sm font-medium text-gray-800"> Photo Url </span>
+
+                    <input
+                      type="url"
+                      id="UserPhotoUrl"
+                      name="photo_url"
+                      placeholder="Photo url"
+                      className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                      required
+                    />
+                  </label>
+                </div>
 
                 <div className="text-center lg:text-left mt-6">
                   <button
-                    type="button"
                     className="inline-block rounded bg-black px-7 pb-2.5 pt-3 my-2 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out "
                     data-te-ripple-init
                     data-te-ripple-color="light"
+                    type="submit"
                   >
                     Register
                   </button>
 
                   <p className="mb-0 mt-2 py-3 text-sm font-semibold">
-                  Have an account? 
-                    <a
-                      href="#!"
+                    Have an account?
+                    <Link
+                      to={"/login"}
                       className="text-orange-600 transition duration-150 ease-in-out hover:text-orange-400 focus:text-orange-400 active:text-orange-500 pl-2"
                     >
                       Login
-                    </a>
+                    </Link>
                   </p>
+                </div>
                 </div>
               </form>
             </div>

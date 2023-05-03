@@ -1,22 +1,22 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import Blogs from '../Blogs/Blogs';
-import Header from '../Header/Header';
+import Blogs from '../Pages/Blogs/Blogs';
 import ErrorPage from '../Layouts/404Page';
-import Home from '../Layouts/Home';
+import Main from '../Layouts/Main';
+import Home from '../Pages/Home/Home';
 import RegisterPage from '../Pages/Register Page/RegisterPage';
-import ViewDetailsCard from './../ViewDetailsCard/ViewDetailsCard';
 import LogInPage from '../Pages/Sign In Page/LogInPage';
+import ViewDetailsCard from './../ViewDetailsCard/ViewDetailsCard';
 
 
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home/>,
+      element: <Main/>,
       children:[
         {
             path:"/",
-            element: <Header/>
+            element: <Home/>
         },
         {
             path:":id",

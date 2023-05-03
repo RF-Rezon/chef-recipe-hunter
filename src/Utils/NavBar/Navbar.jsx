@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Collapse, Dropdown, initTE } from "tw-elements";
-import ActiveLink from "../ActiveLink/ActiveLink";
+import ActiveLink from "../../ActiveLink/ActiveLink";
 
 initTE({ Collapse, Dropdown });
 

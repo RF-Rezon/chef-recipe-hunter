@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ExtraSectionOne from "../ExtraSectionOne/ExtraSectionOne";
-import ExtraSectionTwo from "../ExtraSectionTwo/ExtraSectionTwo";
-import Spninner from "../Utils/spninner";
-import AllChefs from "./../AllChefs/AllChefs";
+import AllChefs from "../../AllChefs/AllChefs";
+import ExtraSectionOne from "../../ExtraSectionOne/ExtraSectionOne";
+import ExtraSectionTwo from "../../ExtraSectionTwo/ExtraSectionTwo";
+import Spninner from "../../Utils/spninner";
 
-const Header = () => {
+const Home = () => {
   //   const allFetchedData = useLoaderData();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -64,4 +64,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Home;

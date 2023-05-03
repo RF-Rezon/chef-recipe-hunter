@@ -1,6 +1,7 @@
 import React from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 // Initialization for ES Users
+import { Link } from 'react-router-dom';
 import { Input, Ripple, initTE } from "tw-elements";
 
 initTE({ Input, Ripple });
@@ -50,35 +51,37 @@ const LogInPage = () => {
                     <p className="mx-4 mb-0 text-center font-semibold dark:text-white">Or</p>
                   </div>
 
-                  <div className="relative mb-6" data-te-input-wrapper-init>
-                    <input
-                      type="text"
-                      className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                      id="exampleFormControlInput2"
-                      placeholder="Email address"
-                    />
-                    <label
-                      for="exampleFormControlInput2"
-                      className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                    >
-                      Email address
-                    </label>
-                  </div>
+                  <div className="relative mb-6">
+                  <label
+                    htmlFor="UserEmail"
+                    className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  >
+                    <span className="text-sm font-medium text-gray-800"> Email </span>
 
-                  <div className="relative mb-6" data-te-input-wrapper-init>
+                    <input
+                      type="email"
+                      id="UserEmail"
+                      placeholder="Your email"
+                      className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                    />
+                  </label>
+                </div>
+
+                <div className="relative mb-6">
+                  <label
+                    htmlFor="UserPassword"
+                    className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                  >
+                    <span className="text-sm font-medium text-gray-800"> Password </span>
+
                     <input
                       type="password"
-                      className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                      id="exampleFormControlInput22"
+                      id="UserPassword"
                       placeholder="Password"
+                      className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                     />
-                    <label
-                      for="exampleFormControlInput22"
-                      className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                    >
-                      Password
-                    </label>
-                  </div>
+                  </label>
+                </div>
 
                   <div className="text-center lg:text-left mt-6">
                     <button
@@ -92,12 +95,12 @@ const LogInPage = () => {
 
                     <p className="mb-0 mt-2 py-3 text-sm font-semibold">
                       Don't have an account?
-                      <a
-                        href="#!"
+                      <Link
+                        to={"/register"}
                         className="text-orange-600 transition duration-150 ease-in-out hover:text-orange-400 focus:text-orange-400 active:text-orange-500 pl-2"
                       >
                         Register
-                      </a>
+                      </Link>
                     </p>
                   </div>
                 </form>
