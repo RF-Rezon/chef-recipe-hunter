@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Collapse, Dropdown, initTE } from "tw-elements";
+import ActiveLink from "../ActiveLink/ActiveLink";
 
 initTE({ Collapse, Dropdown });
 
@@ -40,7 +42,7 @@ const Navbar = () => {
               id="navbarSupportedContent1"
               data-te-collapse-item
             >
-              <a
+              <Link to={"/"}
                 className="mb-4 mr-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
                 href="#"
               >
@@ -50,42 +52,44 @@ const Navbar = () => {
                   loading="lazy"
                   className="h-10 w-10 mx-auto md:mr-4"
                 />
-              </a>
+              </Link>
 
               <div
                 className="mr-auto flex flex-col pl-0 lg:flex-row items-center justify-between w-full"
                 data-te-navbar-nav-ref
               >
-                <div className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-                  <p className="text-black text-4xl font-bold cursor-default">
-                    IOR
-                  </p>
-                </div>
+                <Link to={"/"}>
+                  <div className="mb-4 lg:mb-0 lg:pr-2 " data-te-nav-item-ref>
+                    <p className="text-black text-4xl font-bold cursor-pointer">
+                      IOR
+                    </p>
+                  </div>
+                </Link>
 
-                <div className="flex space-x-3">
+                <div className="flex items-center justify-between space-x-3">
                   <div className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-                    <a
+                    <ActiveLink to={"/"}
                       className="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
                       href="#"
                       data-te-nav-link-ref
                     >
                       Home
-                    </a>
+                    </ActiveLink>
                   </div>
                   <div className="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-                    <a
+                    <ActiveLink to={"/blogs"}
                       className="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
                       href="#"
                       data-te-nav-link-ref
                     >
                       Blogs
-                    </a>
+                    </ActiveLink>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="relative flex items-center mx-auto gap-x-6 my-4">
+            <div className="relative flex items-center mx-auto gap-x-6 my-4 ml-7">
               <button
                 type="button"
                 className="inline-block rounded bg-neutral-50 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-800 shadow-[0_4px_9px_-4px_#cbcbcb] transition duration-150 ease-in-out hover:bg-neutral-100 hover:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:bg-neutral-100 focus:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:outline-none focus:ring-0 active:bg-neutral-200 active:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(251,251,251,0.3)] dark:hover:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:focus:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:active:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]"
@@ -100,7 +104,7 @@ const Navbar = () => {
               </button>
 
               <div className="relative" data-te-dropdown-ref>
-                <a
+                <Link
                   className="hidden-arrow flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
                   href="#"
                   id="dropdownMenuButton2"
@@ -114,7 +118,7 @@ const Navbar = () => {
                     alt=""
                     loading="lazy"
                   />
-                </a>
+                </Link>
 
                 {/* <ul
               className="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"

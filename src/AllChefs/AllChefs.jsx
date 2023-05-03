@@ -20,7 +20,7 @@ const AllChefs = ({ eachChefData }) => {
           <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
             Likes: <span>{likes}</span>
           </p>
-          <Link to={`/all/${id}`}>
+          <Link to={`/${id}`}>
               <button
               
                 type="button"

@@ -1,11 +1,30 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import ExtraSectionOne from "../ExtraSectionOne/ExtraSectionOne";
 import ExtraSectionTwo from "../ExtraSectionTwo/ExtraSectionTwo";
+import Spninner from "../Utils/spninner";
 import AllChefs from "./../AllChefs/AllChefs";
 
 const Header = () => {
-  const allFetchedData = useLoaderData();
+  //   const allFetchedData = useLoaderData();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    fetch("http://localhost:5000/")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+  if (loading) {
+    return <Spninner />;
+  }
   return (
     <div>
       <div>
@@ -32,13 +51,13 @@ const Header = () => {
           <p className="md:text-3xl text-2xl font-medium text-white px-10">Our Amazing Chefs</p>
         </div>
         <div className="m-10 grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
-          {allFetchedData.map((eachChefData) => (
+          {data.map((eachChefData) => (
             <AllChefs key={eachChefData.id} eachChefData={eachChefData} />
           ))}
         </div>
         <div>
           <ExtraSectionOne />
-          <ExtraSectionTwo/>
+          <ExtraSectionTwo />
         </div>
       </div>
     </div>
