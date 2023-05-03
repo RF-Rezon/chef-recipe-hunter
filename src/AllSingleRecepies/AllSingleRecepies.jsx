@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Initialization for ES Users
 import { FaRegHeart } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -8,13 +8,17 @@ import { Ripple, initTE } from "tw-elements";
 initTE({ Ripple });
 
 const AllSingleRecepies = ({ each }) => {
+  // const [isDisabled, setDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const { recipe_name, ingredients, cooking_method, rating } = each;
 
   let ingredientsComma = ingredients.toString();
 
-  const notify =()=>{
-    return toast("You Loved iT!");
-  }
+  const notify = () => {
+    toast("You Loved iT!");
+    setIsDisabled(true)
+  };
+
   return (
     <div>
       <div className="my-6">
@@ -35,6 +39,7 @@ const AllSingleRecepies = ({ each }) => {
             </p>
             <button
               type="button"
+              disabled={isDisabled}
               onClick={notify}
               className="rounded bg-orange-600 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-orange-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-orange-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-orange-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
               data-te-ripple-init
