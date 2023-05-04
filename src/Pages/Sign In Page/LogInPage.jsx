@@ -8,7 +8,6 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 initTE({ Input, Ripple });
 
 const LogInPage = () => {
-  const [user, setUser] = useState(null);
   const [wrongUser, setWrongUser] = useState("");
 
   const { signInUser } = useContext(AuthContext);
@@ -17,35 +16,30 @@ const LogInPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
 
     signInUser(email, password)
       .then((userCredential) => {
-        const success_user = userCredential.user;
         setWrongUser("")
-        console.log("Log IN successfully", success_user);
+        const success_user = userCredential.user;
       })
       .catch((error) => {
         const errorMessage = error.message;
-        setWrongUser("User's email address or password doesn't match")
-        console.log(errorMessage);
+        setWrongUser("Error! Check Email And Password Again!")
       });
-      event.target.reset();
+    event.target.reset();
   };
 
   const handleGoogleSubmit = () => {
     signInWithGoogle()
       .then((result) => {
         const loggedUser = result.user;
-        setUser(loggedUser);
-        console.log(loggedUser);
       })
       .catch((error) => {
         const errorMessage = error.message;
-        console.log(errorMessage);
       });
   };
 
@@ -53,18 +47,16 @@ const LogInPage = () => {
     signInWithGitHub()
       .then((result) => {
         const loggedUser = result.user;
-        setUser(loggedUser);
       })
       .catch((error) => {
         const errorMessage = error.message;
-        console.log(errorMessage)
       });
   };
 
   return (
     <div>
       <div>
-        <section className="h-screen">
+        <section className="h-screen mb-28 md:mb-10">
           <div className="h-full">
             <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
               <div className="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
@@ -76,32 +68,30 @@ const LogInPage = () => {
               </div>
 
               <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
-                <form onSubmit={handleSubmit}>
-                  <div className="flex flex-row items-center justify-center lg:justify-start">
-                    <p className="mb-0 mr-4 text-lg">Sign in with</p>
+                <div className="flex flex-row items-center justify-center lg:justify-start">
+                  <p className="mb-0 mr-4 text-lg">Sign in with</p>
+                  <button
+                    onClick={handleGoogleSubmit}
+                    data-te-ripple-color="light"
+                    className="mx-1 h-9 w-9 rounded-full bg-black uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
+                  >
+                    <div className="flex items-center justify-center">
+                      <FaGoogle />
+                    </div>
+                  </button>
 
-                    <button
-                      onClick={handleGoogleSubmit}
-                      data-te-ripple-color="light"
-                      className="mx-1 h-9 w-9 rounded-full bg-black uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
-                    >
-                      <div className="flex items-center justify-center">
-                        <FaGoogle />
-                      </div>
-                    </button>
-
-                    <button
+                  <button
                     onClick={handleGithubSubmit}
-                      type="button"
-                      data-te-ripple-color="light"
-                      className="mx-1 h-9 w-9 rounded-full bg-orange-500 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
-                    >
-                      <div className="flex items-center justify-center">
-                        <FaGithub />
-                      </div>
-                    </button>
-                  </div>
-
+                    type="button"
+                    data-te-ripple-color="light"
+                    className="mx-1 h-9 w-9 rounded-full bg-orange-500 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
+                  >
+                    <div className="flex items-center justify-center">
+                      <FaGithub />
+                    </div>
+                  </button>
+                </div>
+                <form onSubmit={handleSubmit}>
                   <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
                     <p className="mx-4 mb-0 text-center font-semibold dark:text-white">Or</p>
                   </div>
@@ -141,11 +131,9 @@ const LogInPage = () => {
                   </div>
 
                   <div className="mb-0 text-base font-semibold">
-                      <span
-                      className="text-red-600 transition duration-150 ease-in-out hover:text-red-400 focus:text-red-400 active:text-red-500 pl-2"
-                      >
+                    <span className="text-red-600 transition duration-150 ease-in-out hover:text-red-400 focus:text-red-400 active:text-red-500 pl-2">
                       {wrongUser && wrongUser}
-                      </span>
+                    </span>
                   </div>
 
                   <div className="text-center lg:text-left mt-6">

@@ -45,7 +45,7 @@ const RegisterPage = () => {
 
  
   return (
-    <div className="m-5 mb-40 md:mb-10">
+    <div className="m-5 mb-52 md:mb-10">
       <section className="h-screen">
         <div className="h-full">
           <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">

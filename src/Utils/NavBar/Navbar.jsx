@@ -10,7 +10,7 @@ initTE({ Collapse, Dropdown });
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
-
+   
   return (
     <>
       <div>
@@ -89,7 +89,7 @@ const Navbar = () => {
                     <span data-tooltip-id="my-tooltip" data-tooltip-content={user?.displayName}>
                       <img
                         data-tooltip-target="tooltip-default"
-                        src={user?.photoURL}
+                        src={user.photoURL}
                         className="rounded-full w-10 h-10"
                         alt=""
                         loading="lazy"
