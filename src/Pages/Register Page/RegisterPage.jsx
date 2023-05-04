@@ -1,6 +1,5 @@
 // Initialization for ES Users
-import { GoogleAuthProvider } from "firebase/auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
@@ -8,28 +7,40 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 initTE({ Input, Ripple });
 
 const RegisterPage = () => {
+  const [warn, setWarn]  = useState("");
    const {createUser} = useContext(AuthContext);
-   
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const photo_url = form.photo_url.value;
+
+
+
+   const handleSubmit = (event) => {
+     event.preventDefault();
+     const form = event.target;
+     const name = form.name.value;
+     const email = form.email.value;
+     const password = form.password.value;
+     const photo_url = form.photo_url.value;
+     
+     
+    if(password.length < 6){
+      setWarn("You have to use minimum 6 chareacters for password");
+      return ;
+    }else{
+      setWarn("")
+    }
 
     // console.log(name, email, password, photo_url);
     createUser(email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      // ...
+      console.log(user)
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       // ..
     });
+    event.target.reset();
   };
 
  
@@ -107,7 +118,7 @@ const RegisterPage = () => {
 
                     <input
                       type="email"
-                      id="UserEmail"
+                      id="User1Email"
                       name="email"
                       placeholder="Your email"
                       className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -151,6 +162,13 @@ const RegisterPage = () => {
                     />
                   </label>
                 </div>
+                <p className="mb-0 text-base font-semibold">
+                      <span
+                      className="text-red-600 transition duration-150 ease-in-out hover:text-red-400 focus:text-red-400 active:text-red-500 pl-2"
+                      >
+                      {warn && warn}
+                      </span>
+                  </p>
 
                 <div className="text-center lg:text-left mt-6">
                   <button

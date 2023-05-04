@@ -30,7 +30,7 @@ const Footer = () => {
                 >
                   <input
                     type="email"
-                    id="UserEmail"
+                    id="User3Email"
                     placeholder="weLoveOurJhankerMahbubVai@phero.com"
                     className="w-full border-none focus:border-transparent focus:ring-transparent sm:text-sm p-5 rounded-lg"
                   />

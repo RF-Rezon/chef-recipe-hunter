@@ -9,6 +9,7 @@ initTE({ Input, Ripple });
 
 const LogInPage = () => {
   const [user, setUser] = useState(null);
+  const [wrongUser, setWrongUser] = useState("");
 
   const { signInUser } = useContext(AuthContext);
   const { signInWithGoogle } = useContext(AuthContext);
@@ -16,21 +17,23 @@ const LogInPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
 
     signInUser(email, password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log("Log IN successfully", user);
-        // ...
+        const success_user = userCredential.user;
+        setWrongUser("")
+        console.log("Log IN successfully", success_user);
       })
       .catch((error) => {
         const errorMessage = error.message;
+        setWrongUser("User's email address or password doesn't match")
         console.log(errorMessage);
       });
+      event.target.reset();
   };
 
   const handleGoogleSubmit = () => {
@@ -112,7 +115,7 @@ const LogInPage = () => {
 
                       <input
                         type="email"
-                        id="UserEmail"
+                        id="User2Email"
                         placeholder="Your email"
                         className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                         name="email"
@@ -135,6 +138,14 @@ const LogInPage = () => {
                         name="password"
                       />
                     </label>
+                  </div>
+
+                  <div className="mb-0 text-base font-semibold">
+                      <span
+                      className="text-red-600 transition duration-150 ease-in-out hover:text-red-400 focus:text-red-400 active:text-red-500 pl-2"
+                      >
+                      {wrongUser && wrongUser}
+                      </span>
                   </div>
 
                   <div className="text-center lg:text-left mt-6">
