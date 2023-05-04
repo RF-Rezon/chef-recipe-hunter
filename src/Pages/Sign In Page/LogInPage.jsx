@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 // Initialization for ES Users
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
@@ -9,10 +9,14 @@ initTE({ Input, Ripple });
 
 const LogInPage = () => {
   const [wrongUser, setWrongUser] = useState("");
+  const navigate =  useNavigate();
+  const location = useLocation();
 
   const { signInUser } = useContext(AuthContext);
   const { signInWithGoogle } = useContext(AuthContext);
   const { signInWithGitHub } = useContext(AuthContext);
+
+  const from = location.state.from.pathname || "/" ;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,6 +29,7 @@ const LogInPage = () => {
       .then((userCredential) => {
         setWrongUser("")
         const success_user = userCredential.user;
+        navigate(from, {replace: true});
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -37,6 +42,7 @@ const LogInPage = () => {
     signInWithGoogle()
       .then((result) => {
         const loggedUser = result.user;
+        navigate("/")
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -47,6 +53,7 @@ const LogInPage = () => {
     signInWithGitHub()
       .then((result) => {
         const loggedUser = result.user;
+        navigate("/")
       })
       .catch((error) => {
         const errorMessage = error.message;

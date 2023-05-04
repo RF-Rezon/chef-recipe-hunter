@@ -1,6 +1,6 @@
 // Initialization for ES Users
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
@@ -9,7 +9,7 @@ initTE({ Input, Ripple });
 const RegisterPage = () => {
   const [warn, setWarn]  = useState("");
    const {createUser} = useContext(AuthContext);
-
+   const navigate =  useNavigate();
 
 
    const handleSubmit = (event) => {
@@ -33,7 +33,7 @@ const RegisterPage = () => {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      console.log(user)
+      navigate("/login")
     })
     .catch((error) => {
       const errorCode = error.code;
