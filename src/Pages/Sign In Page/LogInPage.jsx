@@ -16,7 +16,6 @@ const LogInPage = () => {
   const { signInWithGoogle } = useContext(AuthContext);
   const { signInWithGitHub } = useContext(AuthContext);
 
-  const from = location.state.from.pathname || "/" ;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,7 +28,7 @@ const LogInPage = () => {
       .then((userCredential) => {
         setWrongUser("")
         const success_user = userCredential.user;
-        navigate(from, {replace: true});
+        navigate("/");
       })
       .catch((error) => {
         const errorMessage = error.message;
