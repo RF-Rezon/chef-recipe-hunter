@@ -6,18 +6,26 @@ import AllSingleRecepies from "./../AllSingleRecepies/AllSingleRecepies";
 import ChefBanner from "./../ChefBanner/ChefBanner";
 
 const ViewDetailsCard = () => {
-  const navigation =  useNavigation;
+  const navigation = useNavigation;
   const allFetchedData = useLoaderData();
-  const {id} = useParams();
+  const { id } = useParams();
   return (
     <div>
+      <div>{navigation.state === "loading" && <Spninner />}</div>
       <div>
-        {navigation.state === "loading" && <Spninner/>}
+        <div className="text-center p-6 md:py-20 py-10">
+          <p className="md:text-xl text-sm font-medium text-orange-500">Chef</p>
+          <p className="md:text-3xl text-2xl font-semibold text-zinc-800">Recipes</p>
+        </div>
       </div>
+      <div>{allFetchedData && <ChefBanner chefinfo={allFetchedData} />}</div>
       <div>
-       { allFetchedData && < ChefBanner chefinfo={allFetchedData} />}
+        {id >= 1 && id <= 10 ? (
+          allFetchedData?.recipes?.map((each) => <AllSingleRecepies key={each.recipe_name} each={each} />)
+        ) : (
+          <ErrorPage />
+        )}
       </div>
-      <div>{(id >=1 && id <= 10) ? allFetchedData?.recipes?.map((each) => <AllSingleRecepies key={each.recipe_name} each={each} />) : <ErrorPage/>}</div>
     </div>
   );
 };

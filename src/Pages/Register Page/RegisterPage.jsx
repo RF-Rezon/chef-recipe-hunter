@@ -1,6 +1,6 @@
 // Initialization for ES Users
+import { GoogleAuthProvider } from "firebase/auth";
 import { useContext } from "react";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
@@ -9,6 +9,7 @@ initTE({ Input, Ripple });
 
 const RegisterPage = () => {
    const {createUser} = useContext(AuthContext);
+   
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -18,7 +19,6 @@ const RegisterPage = () => {
     const photo_url = form.photo_url.value;
 
     // console.log(name, email, password, photo_url);
-
     createUser(email, password)
     .then((userCredential) => {
       // Signed in 
@@ -31,6 +31,8 @@ const RegisterPage = () => {
       // ..
     });
   };
+
+ 
   return (
     <div className="m-5 mb-40 md:mb-10">
       <section className="h-screen">
@@ -49,11 +51,12 @@ const RegisterPage = () => {
                 <div className="flex flex-row items-center justify-center lg:justify-start">
                   <p className="mb-0 mr-4 text-lg">Sign up with</p>
 
-                  <button
+                  {/* <button
                     type="button"
                     data-te-ripple-init
                     data-te-ripple-color="light"
                     className="mx-1 h-9 w-9 rounded-full bg-black uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
+                    onClick={handleGoogleSubmit}
                   >
                     <div className="flex items-center justify-center">
                       <FaGoogle />
@@ -69,7 +72,7 @@ const RegisterPage = () => {
                     <div className="flex items-center justify-center">
                       <FaGithub />
                     </div>
-                  </button>
+                  </button> */}
                 </div>
 
                 <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">

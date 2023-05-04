@@ -1,12 +1,63 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 // Initialization for ES Users
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 initTE({ Input, Ripple });
 
 const LogInPage = () => {
+  const [user, setUser] = useState(null);
+
+  const { signInUser } = useContext(AuthContext);
+  const { signInWithGoogle } = useContext(AuthContext);
+  const { signInWithGitHub } = useContext(AuthContext);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signInUser(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("Log IN successfully", user);
+        // ...
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  const handleGoogleSubmit = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const loggedUser = result.user;
+        setUser(loggedUser);
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  const handleGithubSubmit = () => {
+    signInWithGitHub()
+      .then((result) => {
+        const loggedUser = result.user;
+        setUser(loggedUser);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage)
+      });
+  };
+
   return (
     <div>
       <div>
@@ -22,29 +73,30 @@ const LogInPage = () => {
               </div>
 
               <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="flex flex-row items-center justify-center lg:justify-start">
                     <p className="mb-0 mr-4 text-lg">Sign in with</p>
 
                     <button
-                      type="button"
-                      data-te-ripple-init
+                      onClick={handleGoogleSubmit}
                       data-te-ripple-color="light"
                       className="mx-1 h-9 w-9 rounded-full bg-black uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
                     >
-                      <div className="flex items-center justify-center"><FaGoogle/></div>
+                      <div className="flex items-center justify-center">
+                        <FaGoogle />
+                      </div>
                     </button>
 
                     <button
+                    onClick={handleGithubSubmit}
                       type="button"
-                      data-te-ripple-init
                       data-te-ripple-color="light"
                       className="mx-1 h-9 w-9 rounded-full bg-orange-500 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
                     >
-                      <div className="flex items-center justify-center"><FaGithub/></div>
+                      <div className="flex items-center justify-center">
+                        <FaGithub />
+                      </div>
                     </button>
-
-                    
                   </div>
 
                   <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
@@ -52,47 +104,47 @@ const LogInPage = () => {
                   </div>
 
                   <div className="relative mb-6">
-                  <label
-                    htmlFor="UserEmail"
-                    className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                  >
-                    <span className="text-sm font-medium text-gray-800"> Email </span>
+                    <label
+                      htmlFor="UserEmail"
+                      className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    >
+                      <span className="text-sm font-medium text-gray-800"> Email </span>
 
-                    <input
-                      type="email"
-                      id="UserEmail"
-                      placeholder="Your email"
-                      className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                    />
-                  </label>
-                </div>
+                      <input
+                        type="email"
+                        id="UserEmail"
+                        placeholder="Your email"
+                        className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                        name="email"
+                      />
+                    </label>
+                  </div>
 
-                <div className="relative mb-6">
-                  <label
-                    htmlFor="UserPassword"
-                    className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-                  >
-                    <span className="text-sm font-medium text-gray-800"> Password </span>
+                  <div className="relative mb-6">
+                    <label
+                      htmlFor="UserPassword"
+                      className="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+                    >
+                      <span className="text-sm font-medium text-gray-800"> Password </span>
 
-                    <input
-                      type="password"
-                      id="UserPassword"
-                      placeholder="Password"
-                      className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                    />
-                  </label>
-                </div>
+                      <input
+                        type="password"
+                        id="UserPassword"
+                        placeholder="Password"
+                        className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                        name="password"
+                      />
+                    </label>
+                  </div>
 
                   <div className="text-center lg:text-left mt-6">
                     <button
-                      type="button"
+                      type="submit"
                       className="inline-block rounded bg-black px-7 pb-2.5 pt-3 my-2 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out "
-                      data-te-ripple-init
                       data-te-ripple-color="light"
                     >
                       Login
                     </button>
-
                     <p className="mb-0 mt-2 py-3 text-sm font-semibold">
                       Don't have an account?
                       <Link
