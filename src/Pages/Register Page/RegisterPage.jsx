@@ -1,4 +1,5 @@
 // Initialization for ES Users
+import { updateProfile } from "firebase/auth";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
@@ -8,8 +9,9 @@ initTE({ Input, Ripple });
 
 const RegisterPage = () => {
   const [warn, setWarn]  = useState("");
-   const {createUser, updateProfile} = useContext(AuthContext);
+   const {createUser} = useContext(AuthContext);
    const navigate =  useNavigate();
+   
    
 
    const handleSubmit = (event) => {
@@ -20,31 +22,22 @@ const RegisterPage = () => {
      const password = form.password.value;
      const photo_url = form.photo_url.value;
 
-
-
-    if(password.length == 0 || email.length == 0){
-      return setWarn("You cannot submit empty password and email fields");
+   
+     if(password.length < 6){
+      setWarn("You cannot submit empty password field");
     }
-    // else if
-    // (email.length < 6 ){
-    //   return setWarn("You cannot submit empty email field");
-    // }
-    // else if(password.length <1){
-    //   return setWarn("You cannot submit empty password field");
-    // }
 
     // console.log(name, email, password, photo_url);
     createUser(email, password)
     .then((userCredential) => {
       const success_user = userCredential.user;
+      updateProfile(userCredential.user, {displayName: name, photoURL: photo_url});
       navigate("/");
     })
     .catch((error) => {
       const errorMessage = error.message;
-      setWarn(errorMessage)
       // ..
     })
-      // updateProfile(userCredential.user, {displayName: name, photoURL: photo_url});
       
     event.target.reset();
   };
@@ -107,7 +100,7 @@ const RegisterPage = () => {
                       name="email"
                       placeholder="Your email"
                       className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      
+                      required
                     />
                   </label>
                 </div>
@@ -125,7 +118,7 @@ const RegisterPage = () => {
                       name="password"
                       placeholder="Password"
                       className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      
+                      required
                     />
                   </label>
                 </div>
@@ -148,11 +141,11 @@ const RegisterPage = () => {
                   </label>
                 </div>
                 <p className="mb-0 text-base font-semibold">
-                      <span
+                     { warn && <span
                       className="text-red-600 transition duration-150 ease-in-out hover:text-red-400 focus:text-red-400 active:text-red-500 pl-2"
                       >
-                      {warn && warn}
-                      </span>
+                       {warn}
+                      </span>}
                   </p>
 
                 <div className="text-center lg:text-left mt-6">

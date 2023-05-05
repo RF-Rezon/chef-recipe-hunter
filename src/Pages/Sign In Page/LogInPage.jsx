@@ -8,17 +8,17 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 initTE({ Input, Ripple });
 
 const LogInPage = () => {
-  const [wrongUser, setWrongUser] = useState("");
-  const navigate =  useNavigate();
-  const location = useLocation();
-  
-  const from = location.state?.from?.pathname || "/";
-  
   const { signInUser } = useContext(AuthContext);
   const { signInWithGoogle } = useContext(AuthContext);
   const { signInWithGitHub } = useContext(AuthContext);
+  
+  const [wrongUser, setWrongUser] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  const from = location.state?.from?.pathname || "/";
 
+  
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -26,15 +26,19 @@ const LogInPage = () => {
     const email = form.email.value;
     const password = form.password.value;
 
+    if(password.length < 6){
+      return setWrongUser("You cannot submit empty password field");
+    }
+
     signInUser(email, password)
       .then((userCredential) => {
-        setWrongUser("")
+        setWrongUser("");
         const success_user = userCredential.user;
-        navigate(from, {replace: true});
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;
-        setWrongUser("Error! Check Email And Password Again!")
+        setWrongUser("Error! Check Email And Password Again!");
       });
     event.target.reset();
   };
@@ -43,7 +47,8 @@ const LogInPage = () => {
     signInWithGoogle()
       .then((result) => {
         const loggedUser = result.user;
-        navigate(from, {replace: true})
+
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -54,7 +59,7 @@ const LogInPage = () => {
     signInWithGitHub()
       .then((result) => {
         const loggedUser = result.user;
-        navigate(from, {replace: true})
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -117,6 +122,7 @@ const LogInPage = () => {
                         placeholder="Your email"
                         className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                         name="email"
+                        required
                       />
                     </label>
                   </div>
@@ -134,18 +140,21 @@ const LogInPage = () => {
                         placeholder="Password"
                         className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                         name="password"
+                        required
                       />
                     </label>
                   </div>
 
                   <div className="mb-0 text-base font-semibold">
-                    <span className="text-red-600 transition duration-150 ease-in-out hover:text-red-400 focus:text-red-400 active:text-red-500 pl-2">
-                      {wrongUser && wrongUser}
-                    </span>
+                    {wrongUser && (
+                      <span className="text-red-600 transition duration-150 ease-in-out hover:text-red-400 focus:text-red-400 active:text-red-500 pl-2">
+                        {wrongUser}
+                      </span>
+                    )}
                   </div>
 
                   <div className="text-center lg:text-left mt-6">
-                    <button
+                   <button
                       type="submit"
                       className="inline-block rounded bg-black px-7 pb-2.5 pt-3 my-2 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out "
                       data-te-ripple-color="light"
