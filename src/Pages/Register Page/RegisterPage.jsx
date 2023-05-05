@@ -4,13 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
-initTE({ Input, Ripple , });
+initTE({ Input, Ripple });
 
 const RegisterPage = () => {
   const [warn, setWarn]  = useState("");
    const {createUser, updateProfile} = useContext(AuthContext);
    const navigate =  useNavigate();
-
+   
 
    const handleSubmit = (event) => {
      event.preventDefault();
@@ -19,34 +19,39 @@ const RegisterPage = () => {
      const email = form.email.value;
      const password = form.password.value;
      const photo_url = form.photo_url.value;
-     
-     
-    if(password.length < 6){
-      setWarn("You have to use minimum 6 chareacters for password");
-      return ;
-    }else{
-      setWarn("")
+
+
+
+    if(password.length == 0 || email.length == 0){
+      return setWarn("You cannot submit empty password and email fields");
     }
+    // else if
+    // (email.length < 6 ){
+    //   return setWarn("You cannot submit empty email field");
+    // }
+    // else if(password.length <1){
+    //   return setWarn("You cannot submit empty password field");
+    // }
 
     // console.log(name, email, password, photo_url);
     createUser(email, password)
     .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      updateProfile(userCredential.user, {displayName: name, photoURL: photo_url});
-      navigate("/login")
+      const success_user = userCredential.user;
+      navigate("/");
     })
     .catch((error) => {
-      const errorCode = error.code;
       const errorMessage = error.message;
+      setWarn(errorMessage)
       // ..
-    });
+    })
+      // updateProfile(userCredential.user, {displayName: name, photoURL: photo_url});
+      
     event.target.reset();
   };
 
  
   return (
-    <div className="m-5 mb-52 md:mb-10">
+    <div className="m-5 mb-80 md:mb-10">
       <section className="h-screen">
         <div className="h-full">
           <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
@@ -63,28 +68,7 @@ const RegisterPage = () => {
                 <div className="flex flex-row items-center justify-center lg:justify-start">
                   <p className="mb-0 mr-4 text-lg">Sign up with</p>
 
-                  {/* <button
-                    type="button"
-                    data-te-ripple-init
-                    data-te-ripple-color="light"
-                    className="mx-1 h-9 w-9 rounded-full bg-black uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
-                    onClick={handleGoogleSubmit}
-                  >
-                    <div className="flex items-center justify-center">
-                      <FaGoogle />
-                    </div>
-                  </button>
-
-                  <button
-                    type="button"
-                    data-te-ripple-init
-                    data-te-ripple-color="light"
-                    className="mx-1 h-9 w-9 rounded-full bg-orange-500 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out"
-                  >
-                    <div className="flex items-center justify-center">
-                      <FaGithub />
-                    </div>
-                  </button> */}
+                 
                 </div>
 
                 <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
@@ -123,7 +107,7 @@ const RegisterPage = () => {
                       name="email"
                       placeholder="Your email"
                       className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      required
+                      
                     />
                   </label>
                 </div>
@@ -141,7 +125,7 @@ const RegisterPage = () => {
                       name="password"
                       placeholder="Password"
                       className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                      required
+                      
                     />
                   </label>
                 </div>
@@ -180,8 +164,8 @@ const RegisterPage = () => {
                   >
                     Register
                   </button>
-
-                  <p className="mb-0 mt-2 py-3 text-sm font-semibold">
+                  <p className="pt-2 md:mt-3 text-base font-semibold">Don't use the same email again.Didn't work with email verification method.</p>
+                  <p className="md:mb-0 mt-2 mb-10 py-3 text-sm font-semibold">
                     Have an account?
                     <Link
                       to={"/login"}
