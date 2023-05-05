@@ -25,7 +25,7 @@ const router = createBrowserRouter([
             <ViewDetailsCard />
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/${params.id}`),
+        loader: ({ params }) => fetch(`https://server-side-rf-rezon.vercel.app/${params.id}`),
       },
       {
         path: "blogs",

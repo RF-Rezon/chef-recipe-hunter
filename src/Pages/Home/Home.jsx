@@ -10,7 +10,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/")
+    fetch("https://server-side-rf-rezon.vercel.app/")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
