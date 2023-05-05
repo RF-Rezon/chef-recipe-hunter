@@ -1,5 +1,4 @@
 import React from "react";
-import LazyLoad from "react-lazy-load";
 import { Link } from "react-router-dom";
 
 const AllChefs = ({ eachChefData }) => {
@@ -7,11 +6,13 @@ const AllChefs = ({ eachChefData }) => {
   return (
     <div>
       <div className=" rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-        <LazyLoad offset={300}>
+        
           <div className="h-96">
+            
             <img className="rounded-t-lg h-full w-full object-cover" src={chef_picture} alt="A Chef Picture" />
+            
           </div>
-        </LazyLoad>
+        
         <div className="p-6">
           <h5 className="text-2xl font-medium text-gray-900 py-3">{chef_name}</h5>
           <p className="mb-2 text-base text-neutral-600 dark:text-neutral-200">

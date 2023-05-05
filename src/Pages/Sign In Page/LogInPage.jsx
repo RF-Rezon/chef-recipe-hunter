@@ -11,7 +11,9 @@ const LogInPage = () => {
   const [wrongUser, setWrongUser] = useState("");
   const navigate =  useNavigate();
   const location = useLocation();
-
+  
+  const from = location.state?.from?.pathname || "/";
+  
   const { signInUser } = useContext(AuthContext);
   const { signInWithGoogle } = useContext(AuthContext);
   const { signInWithGitHub } = useContext(AuthContext);
@@ -28,7 +30,7 @@ const LogInPage = () => {
       .then((userCredential) => {
         setWrongUser("")
         const success_user = userCredential.user;
-        navigate("/");
+        navigate(from, {replace: true});
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -41,7 +43,7 @@ const LogInPage = () => {
     signInWithGoogle()
       .then((result) => {
         const loggedUser = result.user;
-        navigate("/")
+        navigate(from, {replace: true})
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -52,7 +54,7 @@ const LogInPage = () => {
     signInWithGitHub()
       .then((result) => {
         const loggedUser = result.user;
-        navigate("/")
+        navigate(from, {replace: true})
       })
       .catch((error) => {
         const errorMessage = error.message;

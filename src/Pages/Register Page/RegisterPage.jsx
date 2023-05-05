@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input, Ripple, initTE } from "tw-elements";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
-initTE({ Input, Ripple });
+initTE({ Input, Ripple , });
 
 const RegisterPage = () => {
   const [warn, setWarn]  = useState("");
-   const {createUser} = useContext(AuthContext);
+   const {createUser, updateProfile} = useContext(AuthContext);
    const navigate =  useNavigate();
 
 
@@ -33,6 +33,7 @@ const RegisterPage = () => {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
+      updateProfile(userCredential.user, {displayName: name, photoURL: photo_url});
       navigate("/login")
     })
     .catch((error) => {

@@ -5,15 +5,16 @@ import { AuthContext } from "./AuthProvider";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
+
   const location = useLocation();
-  console.log(location)
-  if (loading) {
-    return <div>{<Spninner />}</div>;
-  }else if (user) {
-    return children;
-  } else {
-    return <Navigate state={{ from: location }} to={"/login"} />;
-  }
+  
+ if (!user) {
+   return <Navigate state={{ from: location }} to="/login" replace/>;
+ } 
+ return children;
+  // if (loading) {
+  //   return <div>{<Spninner />}</div>;
+  // }
 };
 
 export default PrivateRoute;

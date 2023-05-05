@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import AllChefs from "../../AllChefs/AllChefs";
 import ExtraSectionOne from "../../ExtraSectionOne/ExtraSectionOne";
 import ExtraSectionTwo from "../../ExtraSectionTwo/ExtraSectionTwo";
-import Spninner from "../../Utils/spninner";
 
 const Home = () => {
   //   const allFetchedData = useLoaderData();
@@ -22,9 +21,7 @@ const Home = () => {
         setLoading(false);
       });
   }, []);
-  if (loading) {
-    return <Spninner />;
-  }
+ 
   return (
     <div>
       <div>
